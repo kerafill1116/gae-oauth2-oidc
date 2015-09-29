@@ -1,4 +1,12 @@
+.idea/
+eclipse-launch-profiles/
+lib/
 target/
+*.iml
+
+# =========================
+# GitHub defaults
+# =========================
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
