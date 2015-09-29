@@ -14,10 +14,12 @@ public class Application extends ResourceConfig {
 
         // register classes here
         register(Resource.class);
+        register(StatusExceptionMapper.class);
 
         // disabled jersery resource discovery, faster load times
         property(ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE, true);
         // allows google app engine to honor thrown exception mapper errors over default response errors
-        property(ServerProperties.RESPONSE_SET_STATUS_OVER_SEND_ERROR, true);
+        // set this in exception mapper for local resource setting
+        // property(ServerProperties.RESPONSE_SET_STATUS_OVER_SEND_ERROR, true);
     }
 }
