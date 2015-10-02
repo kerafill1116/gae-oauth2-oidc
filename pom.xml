@@ -17,6 +17,8 @@
         <jersey.version>2.22</jersey.version>
         <jackson.version>2.6.2</jackson.version>
         <objectify.version>5.1.8</objectify.version>
+        <commons-collections.version>4.0</commons-collections.version>
+        <nimbus-jose-jwt.version>4.2</nimbus-jose-jwt.version>
         <junit.version>4.12</junit.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -93,6 +95,20 @@
             <groupId>com.googlecode.objectify</groupId>
             <artifactId>objectify</artifactId>
             <version>${objectify.version}</version>
+        </dependency>
+
+        <!-- Apache Commons -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons-collections.version}</version>
+        </dependency>
+
+        <!-- Nimbus JOSE + JWT -->
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>${nimbus-jose-jwt.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->
