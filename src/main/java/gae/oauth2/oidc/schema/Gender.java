@@ -1,13 +1,13 @@
 package gae.oauth2.oidc.schema;
 
-public enum Gender {
+public class Gender {
 
-    MALE("male"),
-    FEMALE("female");
+    public static final Gender MALE = new Gender("male");
+    public static final Gender FEMALE = new Gender("female");
 
-    private String gender;
+    private final String gender;
 
-    Gender(String gender) {
+    public Gender(String gender) {
         this.gender = gender;
     }
 

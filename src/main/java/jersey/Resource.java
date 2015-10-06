@@ -1,23 +1,15 @@
 package jersey;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
 import static javax.ws.rs.core.MediaType.*;
 
 import com.googlecode.objectify.ObjectifyService;
 import gae.oauth2.oidc.schema.EndUser;
-import gae.oauth2.oidc.schema.Gender;
 import gae.oauth2.oidc.schema.OAuth2Client;
-import org.apache.commons.collections4.set.ListOrderedSet;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Date;
 
 @Path("/jersey")
 public class Resource {
