@@ -4,7 +4,7 @@ import static javax.ws.rs.core.MediaType.*;
 
 import com.googlecode.objectify.ObjectifyService;
 import gae.oauth2.oidc.schema.EndUser;
-import gae.oauth2.oidc.schema.OAuth2Client;
+import gae.oauth2.oidc.schema.Client;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,7 +16,7 @@ public class Resource {
 
     static {
         ObjectifyService.register(EndUser.class);
-        ObjectifyService.register(OAuth2Client.class);
+        ObjectifyService.register(Client.class);
     }
 
     @GET

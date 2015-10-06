@@ -2,13 +2,13 @@ package gae.oauth2.oidc.schema;
 
 public enum GrantType {
 
+    // OpenID Connect only supported
     AUTHORIZATION_CODE("authorization_code"),
     IMPLICIT("implicit"),
-    PASSWORD("password"),
-    CLIENT_CREDENTIALS("client_credentials"),
     REFRESH_TOKEN("refresh_token"),
-    JWT_BEARER("urn:ietf:params:oauth:grant-type:jwt-bearer"),
-    SAML2_BEARER("urn:ietf:params:oauth:grant-type:saml2-bearer");
+    // OAuth2
+    PASSWORD("password"),
+    CLIENT_CREDENTIALS("client_credentials");
 
     private String type;
 

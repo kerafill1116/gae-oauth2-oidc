@@ -3,8 +3,8 @@ package gae.oauth2.oidc.schema;
 public enum ResponseType {
 
     CODE("code"),
-    TOKEN("token"),
-    ID_TOKEN("id_token");
+    ID_TOKEN("id_token"),
+    TOKEN("token");
 
     private String type;
 
