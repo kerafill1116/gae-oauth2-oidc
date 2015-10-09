@@ -14,22 +14,34 @@ import javax.ws.rs.core.Response;
 @JsonSerialize(using = ErrorException.Serializer.class)
 public class ErrorException extends RuntimeException {
     private Error error;
+    private ClientAuthenticationCredentials clientCredentials;
     private Response.ResponseBuilder rb;
 
-    public ErrorException(Error error)
+    public ErrorException(Error error, ClientAuthenticationCredentials clientCredentials)
             throws JsonProcessingException {
         this.error = error;
+        this.clientCredentials = clientCredentials;
         rb = Response.noContent();
         rb.type(MediaType.APPLICATION_JSON_TYPE);
-        rb.header(HttpHeaders.CACHE_CONTROL, "no-cache no-store");
+        rb.header(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate");
+        rb.header("Pragma", "no-cache");
+        rb.header(HttpHeaders.EXPIRES, "0");
         switch(error) {
             case INVALID_REQUEST:
                 rb.status(Response.Status.BAD_REQUEST);
                 break;
+            case INVALID_CLIENT:
+                rb.status(Response.Status.UNAUTHORIZED);
+                rb.header(HttpHeaders.WWW_AUTHENTICATE, clientCredentials.getAuthMethod().getScheme());
             default:
         }
         ObjectMapper mapper = new ObjectMapper();
         rb.entity(mapper.writeValueAsString(this));
+    }
+
+    public ErrorException(Error error)
+            throws JsonProcessingException {
+        this(error, null);
     }
 
     public Error getError() {

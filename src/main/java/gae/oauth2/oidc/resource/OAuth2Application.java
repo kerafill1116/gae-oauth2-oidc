@@ -1,12 +1,21 @@
 package gae.oauth2.oidc.resource;
 
+import com.googlecode.objectify.ObjectifyService;
 import gae.oauth2.oidc.ErrorExceptionMapper;
+import gae.oauth2.oidc.schema.Client;
+import gae.oauth2.oidc.schema.EndUser;
+import gae.oauth2.oidc.schema.ResourceServer;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
 
 public class OAuth2Application extends ResourceConfig {
+    static {
+        ObjectifyService.register(Client.class);
+        ObjectifyService.register(EndUser.class);
+        ObjectifyService.register(ResourceServer.class);
+    }
 
     public OAuth2Application() {
         // property(JspMvcFeature.TEMPLATE_BASE_PATH, "/WEB-INF/classes");

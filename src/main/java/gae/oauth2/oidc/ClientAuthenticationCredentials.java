@@ -48,6 +48,14 @@ public class ClientAuthenticationCredentials {
         this.secret = secret;
     }
 
+    public TokenEndpointAuthMethod getAuthMethod() {
+        return authMethod;
+    }
+
+    public void setAuthMethod(TokenEndpointAuthMethod authMethod) {
+        this.authMethod = authMethod;
+    }
+
     public static ClientAuthenticationCredentials parse(String header, MultivaluedMap<String, String> form)
             throws JsonProcessingException {
         String id = null;

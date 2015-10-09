@@ -14,11 +14,6 @@ import javax.ws.rs.core.Response;
 @Path("/jersey")
 public class Resource {
 
-    static {
-        ObjectifyService.register(EndUser.class);
-        ObjectifyService.register(Client.class);
-    }
-
     @GET
     @Produces(TEXT_PLAIN)
     public String index() {
