@@ -1,13 +1,12 @@
 package gae.oauth2.oidc.schema;
 
-public enum ResponseType {
-    CODE("code"),
-    ID_TOKEN("id_token"),
-    TOKEN("token");
+public enum ClientType {
+    CONFIDENTIAL("confidential"),
+    PUBLIC("public");
 
     private String type;
 
-    ResponseType(String type) {
+    ClientType(String type) {
         this.type = type;
     }
 

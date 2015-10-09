@@ -10,7 +10,6 @@ import org.apache.commons.collections4.map.HashedMap;
 
 @Entity
 public class EndUser {
-
     @Id
     private String sub;
     private String name;

@@ -10,7 +10,6 @@ import org.apache.commons.collections4.set.ListOrderedSet;
 
 @Entity
 public class Client {
-
     @Id
     private String id;
     private String secret;
@@ -29,6 +28,7 @@ public class Client {
     // code token id_token: authorization_code, implicit
     // default authorization_code only
     private ListOrderedSet<GrantType> grantTypes = new ListOrderedSet<GrantType>();
+    private ClientType type = ClientType.CONFIDENTIAL;
     private ApplicationType applicationType = ApplicationType.WEB;
     private ListOrderedSet<String> contacts = new ListOrderedSet<String>();
     private String name;
@@ -54,7 +54,7 @@ public class Client {
     // request_object_signing_alg
     // request_object_encryption_alg
     // request_object_encryption_enc
-    private TokenEndpointAuthMethod tokenEndpointAuthMethod = TokenEndpointAuthMethod.CLIENT_SECRET_BASIC;
+    private TokenEndpointAuthMethod authMethod = TokenEndpointAuthMethod.CLIENT_SECRET_BASIC;
     // token_endpoint_auth_signing_alg
     private long defaultMaxAge = 0;
     private boolean requireAuthTime = false;
@@ -70,6 +70,8 @@ public class Client {
     private ListOrderedSet<Scope> scope = new ListOrderedSet<Scope>();
     private String softwareId;
     private String softwareVersion;
+
+    private Client() { }
 
     public Client(String id, String secret, Date idIssuedAt, Date secretExpiresAt) {
         this.id = id;
@@ -128,6 +130,14 @@ public class Client {
 
     public void setGrantTypes(ListOrderedSet<GrantType> grantTypes) {
         this.grantTypes = grantTypes;
+    }
+
+    public ClientType getType() {
+        return type;
+    }
+
+    public void setType(ClientType type) {
+        this.type = type;
     }
 
     public ApplicationType getApplicationType() {
@@ -226,12 +236,12 @@ public class Client {
         tosUris.put(lang, tosUri);
     }
 
-    public TokenEndpointAuthMethod getTokenEndpointAuthMethod() {
-        return tokenEndpointAuthMethod;
+    public TokenEndpointAuthMethod getAuthMethod() {
+        return authMethod;
     }
 
-    public void setTokenEndpointAuthMethod(TokenEndpointAuthMethod tokenEndpointAuthMethod) {
-        this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
+    public void setAuthMethod(TokenEndpointAuthMethod authMethod) {
+        this.authMethod = authMethod;
     }
 
     public long getDefaultMaxAge() {

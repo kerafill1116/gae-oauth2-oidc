@@ -20,7 +20,6 @@ public class Resource {
     }
 
     @GET
-    @Path("/")
     @Produces(TEXT_PLAIN)
     public String index() {
         return "Jersey says Hello World!";

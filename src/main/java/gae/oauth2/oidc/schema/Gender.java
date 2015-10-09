@@ -1,7 +1,6 @@
 package gae.oauth2.oidc.schema;
 
 public class Gender {
-
     public static final Gender MALE = new Gender("male");
     public static final Gender FEMALE = new Gender("female");
 

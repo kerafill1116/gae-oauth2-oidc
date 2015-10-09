@@ -3,7 +3,6 @@ package gae.oauth2.oidc.schema;
 import org.apache.commons.lang3.StringUtils;
 
 public class Address {
-
     private String streetAddress;
     private String locality;
     private String region;

@@ -1,7 +1,6 @@
 package gae.oauth2.oidc.schema;
 
 public enum GrantType {
-
     // OpenID Connect only supported
     AUTHORIZATION_CODE("authorization_code"),
     IMPLICIT("implicit"),

@@ -1,7 +1,6 @@
 package gae.oauth2.oidc.schema;
 
 public enum ApplicationType {
-
     // must not use localhost, must use https: scheme
     WEB("web"),
     // can use http: scheme if localhost, otherwise must use https: scheme

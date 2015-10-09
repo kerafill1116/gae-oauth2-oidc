@@ -1,7 +1,6 @@
 package gae.oauth2.oidc.schema;
 
 public enum Scope {
-
     // required for openid end user authentication
     OPENID("openid"),
     // Section 5.4 http://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims

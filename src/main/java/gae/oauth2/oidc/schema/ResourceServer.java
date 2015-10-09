@@ -2,16 +2,14 @@ package gae.oauth2.oidc.schema;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import java.net.URI;
+import java.util.Date;
 import org.apache.commons.collections4.IterableMap;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.collections4.set.ListOrderedSet;
 
-import java.net.URI;
-import java.util.Date;
-
 @Entity
 public class ResourceServer {
-
     @Id
     private String id;
     private String secret;

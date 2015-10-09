@@ -11,14 +11,15 @@
     <properties>
         <app.id>gae-oauth2-oidc</app.id>
         <app.version>1</app.version>
-        <appengine.version>1.9.26</appengine.version>
+        <appengine.version>1.9.27</appengine.version>
         <gcloud.plugin.version>2.0.9.76.v20150902</gcloud.plugin.version>
 
-        <jersey.version>2.22</jersey.version>
+        <jersey.version>2.22.1</jersey.version>
         <jackson.version>2.6.2</jackson.version>
         <objectify.version>5.1.8</objectify.version>
         <commons-collections.version>4.0</commons-collections.version>
         <commons-lang.version>3.4</commons-lang.version>
+        <commons-codec.version>1.10</commons-codec.version>
         <nimbus-oauth2-oidc-sdk.version>4.16.1</nimbus-oauth2-oidc-sdk.version>
         <junit.version>4.12</junit.version>
 
@@ -108,6 +109,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec.version}</version>
         </dependency>
 
         <!-- Nimbus OAuth2 OIDC SDK -->
