@@ -4,6 +4,8 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import java.net.URI;
 import java.util.Date;
+import java.util.UUID;
+
 import org.apache.commons.collections4.IterableMap;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.collections4.set.ListOrderedSet;
@@ -16,9 +18,9 @@ public class Client {
     private Date idIssuedAt;
     private Date secretExpiresAt;
 
-    private ListOrderedSet<URI> redirectUris = new ListOrderedSet<URI>();
+    private ListOrderedSet<URI> redirectUris = new ListOrderedSet<>();
     // default code only
-    private ListOrderedSet<ResponseType> responseTypes = new ListOrderedSet<ResponseType>();
+    private ListOrderedSet<ResponseType> responseTypes = new ListOrderedSet<>();
     // ResponseType GrantType correspondence:
     // code: authorization_code
     // id_token: implicit
@@ -27,20 +29,20 @@ public class Client {
     // code token: authorization_code, implicit
     // code token id_token: authorization_code, implicit
     // default authorization_code only
-    private ListOrderedSet<GrantType> grantTypes = new ListOrderedSet<GrantType>();
+    private ListOrderedSet<GrantType> grantTypes = new ListOrderedSet<>();
     private ClientType type = ClientType.CONFIDENTIAL;
     private ApplicationType applicationType = ApplicationType.WEB;
-    private ListOrderedSet<String> contacts = new ListOrderedSet<String>();
+    private ListOrderedSet<String> contacts = new ListOrderedSet<>();
     private String name;
-    private IterableMap<String, String> names = new HashedMap<String, String>();
+    private IterableMap<String, String> names = new HashedMap<>();
     private URI logoUri;
-    private IterableMap<String, URI> logoUris = new HashedMap<String, URI>();
+    private IterableMap<String, URI> logoUris = new HashedMap<>();
     private URI clientUri;
-    private IterableMap<String, URI> clientUris = new HashedMap<String, URI>();
+    private IterableMap<String, URI> clientUris = new HashedMap<>();
     private URI policyUri;
-    private IterableMap<String, URI> policyUris = new HashedMap<String, URI>();
+    private IterableMap<String, URI> policyUris = new HashedMap<>();
     private URI tosUri;
-    private IterableMap<String, URI> tosUris = new HashedMap<String, URI>();
+    private IterableMap<String, URI> tosUris = new HashedMap<>();
     // jwks_uri
     // jwks
     // sector_identifier_uri
@@ -67,11 +69,33 @@ public class Client {
     // registration_client_uri
 
     // must include openid for end user authentication
-    private ListOrderedSet<Scope> scope = new ListOrderedSet<Scope>();
+    private ListOrderedSet<Scope> scope = new ListOrderedSet<>();
     private String softwareId;
     private String softwareVersion;
 
+    private ListOrderedSet<String> resourceServerIds = new ListOrderedSet<>();
+
     private Client() { }
+
+    public Client(String name, ClientType type, ApplicationType applicationType, URI logoUri, URI clientUri, URI policyUri, URI tosUri, TokenEndpointAuthMethod authMethod, long defaultMaxAge, boolean requireAuthTime, String softwareId, String softwareVersion) {
+        this.name = name;
+        this.type = type;
+        this.applicationType = applicationType;
+        this.logoUri = logoUri;
+        this.clientUri = clientUri;
+        this.policyUri = policyUri;
+        this.tosUri = tosUri;
+        this.authMethod = authMethod;
+        this.defaultMaxAge = defaultMaxAge;
+        this.requireAuthTime = requireAuthTime;
+        this.softwareId = softwareId;
+        this.softwareVersion = softwareVersion;
+
+        id = name.toLowerCase().replaceAll(" ", "-").replaceAll("[^a-z0-9_\\x2D]", "");
+        secret = UUID.randomUUID().toString();
+        idIssuedAt = new Date();
+        secretExpiresAt = null;
+    }
 
     public Client(String id, String secret, Date idIssuedAt, Date secretExpiresAt) {
         this.id = id;
@@ -94,10 +118,6 @@ public class Client {
 
     public Date getIdIssuedAt() {
         return idIssuedAt;
-    }
-
-    public void setIdIssuedAt(Date idIssuedAt) {
-        this.idIssuedAt = idIssuedAt;
     }
 
     public Date getSecretExpiresAt() {

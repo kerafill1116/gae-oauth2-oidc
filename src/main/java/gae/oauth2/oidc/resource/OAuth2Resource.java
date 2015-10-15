@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import gae.oauth2.oidc.*;
 import gae.oauth2.oidc.Error;
 import gae.oauth2.oidc.datastore.ClientFactoryInterface;
-import gae.oauth2.oidc.objectify.ClientFactoryImpl;
+import gae.oauth2.oidc.datastore.objectify.ClientFactoryImpl;
 import gae.oauth2.oidc.schema.Client;
 
 import javax.ws.rs.Consumes;
@@ -37,6 +37,8 @@ public class OAuth2Resource {
                 clientCredentials.setAuthMethod(client.getAuthMethod());
             throw new ErrorException(Error.INVALID_CLIENT, clientCredentials);
         }
+
+        AccessTokenRequest accessTokenRequest = AccessTokenRequest.parse(form);
 
         // "{ \"id\" : \"" + clientCredentials.getId() + "\", \"secret\" : \"" + clientCredentials.getSecret() + "\" }"
         ObjectMapper mapper = new ObjectMapper();

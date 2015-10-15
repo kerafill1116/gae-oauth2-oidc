@@ -13,41 +13,24 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- dummy filter for ObjectifyService.register -->
     <filter>
-        <filter-name>JerseyApplication</filter-name>
+        <filter-name>ObjectifyApplication</filter-name>
         <filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
-
         <init-param>
-            <!--
             <param-name>javax.ws.rs.Application</param-name>
-
-            <param-name>jersey.config.server.provider.packages</param-name>
-            <param-name>jersey.config.server.provider.scanning.recursive</param-name>
-
-            <param-name>jersey.config.server.provider.classnames</param-name>
-            -->
-            <param-name>javax.ws.rs.Application</param-name>
-            <param-value>jersey.Application</param-value>
+            <param-value>gae.oauth2.oidc.datastore.objectify.ObjectifyApplication</param-value>
         </init-param>
-
     </filter>
-
-    <filter-mapping>
-        <filter-name>JerseyApplication</filter-name>
-        <url-pattern>/jersey/*</url-pattern>
-    </filter-mapping>
 
     <filter>
         <filter-name>OAuth2Application</filter-name>
         <filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
-
         <init-param>
             <param-name>javax.ws.rs.Application</param-name>
             <param-value>gae.oauth2.oidc.resource.OAuth2Application</param-value>
         </init-param>
-
     </filter>
-
     <filter-mapping>
         <filter-name>OAuth2Application</filter-name>
         <url-pattern>/oauth2/*</url-pattern>

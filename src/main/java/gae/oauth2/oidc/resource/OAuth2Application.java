@@ -11,12 +11,6 @@ import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
 
 public class OAuth2Application extends ResourceConfig {
-    static {
-        ObjectifyService.register(Client.class);
-        ObjectifyService.register(EndUser.class);
-        ObjectifyService.register(ResourceServer.class);
-    }
-
     public OAuth2Application() {
         // property(JspMvcFeature.TEMPLATE_BASE_PATH, "/WEB-INF/classes");
         register(JspMvcFeature.class);

@@ -4,6 +4,8 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import java.net.URI;
 import java.util.Date;
+import java.util.UUID;
+
 import org.apache.commons.collections4.IterableMap;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.collections4.set.ListOrderedSet;
@@ -16,16 +18,36 @@ public class ResourceServer {
     private Date idIssuedAt;
     private Date secretExpiresAt;
 
+    private ListOrderedSet<ResponseType> responseTypes = new ListOrderedSet<>();
+    private ListOrderedSet<GrantType> grantTypes = new ListOrderedSet<>();
+
     private String name;
-    private IterableMap<String, String> names = new HashedMap<String, String>();
+    private IterableMap<String, String> names = new HashedMap<>();
     private URI logoUri;
-    private IterableMap<String, URI> logoUris = new HashedMap<String, URI>();
+    private IterableMap<String, URI> logoUris = new HashedMap<>();
 
-    private TokenValidationEndpointAuthMethod tokenValidationEndpointAuthMethod = TokenValidationEndpointAuthMethod.RESOURCE_SERVER_SECRET_BASIC;
+    private TokenValidationEndpointAuthMethod authMethod = TokenValidationEndpointAuthMethod.RESOURCE_SERVER_SECRET_BASIC;
 
-    private ListOrderedSet<Scope> scope = new ListOrderedSet<Scope>();
+    private ListOrderedSet<Scope> scope = new ListOrderedSet<>();
     private String softwareId;
     private String softwareVersion;
+
+    private ListOrderedSet<String> clientIds = new ListOrderedSet<>();
+
+    private ResourceServer() { }
+
+    public ResourceServer(String name, URI logoUri, TokenValidationEndpointAuthMethod authMethod, String softwareId, String softwareVersion) {
+        this.name = name;
+        this.logoUri = logoUri;
+        this.authMethod = authMethod;
+        this.softwareId = softwareId;
+        this.softwareVersion = softwareVersion;
+
+        id = name.toLowerCase().replaceAll(" ", "-").replaceAll("[^a-z0-9_\\x2D]", "");
+        secret = UUID.randomUUID().toString();
+        idIssuedAt = new Date();
+        secretExpiresAt = null;
+    }
 
     public ResourceServer(String id, String secret, Date idIssuedAt, Date secretExpiresAt) {
         this.id = id;
@@ -48,10 +70,6 @@ public class ResourceServer {
 
     public Date getIdIssuedAt() {
         return idIssuedAt;
-    }
-
-    public void setIdIssuedAt(Date idIssuedAt) {
-        this.idIssuedAt = idIssuedAt;
     }
 
     public Date getSecretExpiresAt() {
@@ -94,12 +112,12 @@ public class ResourceServer {
         logoUris.put(lang, logoUri);
     }
 
-    public TokenValidationEndpointAuthMethod getTokenValidationEndpointAuthMethod() {
-        return tokenValidationEndpointAuthMethod;
+    public TokenValidationEndpointAuthMethod getAuthMethod() {
+        return authMethod;
     }
 
-    public void setTokenValidationEndpointAuthMethod(TokenValidationEndpointAuthMethod tokenValidationEndpointAuthMethod) {
-        this.tokenValidationEndpointAuthMethod = tokenValidationEndpointAuthMethod;
+    public void setAuthMethod(TokenValidationEndpointAuthMethod authMethod) {
+        this.authMethod = authMethod;
     }
 
     public ListOrderedSet<Scope> getScope() {

@@ -1,17 +1,17 @@
 package gae.oauth2.oidc.schema;
 
-public enum Scope {
+public class Scope {
     // required for openid end user authentication
-    OPENID("openid"),
+    public static Scope OPENID = new Scope("openid");
     // Section 5.4 http://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims
-    PROFILE("profile"),
-    EMAIL("email"),
-    ADDRESS("address"),
-    PHONE("phone");
+    public static Scope PROFILE = new Scope("profile");
+    public static Scope EMAIL = new Scope("email");
+    public static Scope ADDRESS = new Scope("address");
+    public static Scope PHONE = new Scope("phone");
 
     private String scope;
 
-    Scope(String scope) {
+    public Scope(String scope) {
         this.scope = scope;
     }
 
