@@ -13,22 +13,22 @@ public class EndUser {
     @Id
     private String sub;
     private String name;
-    private IterableMap<String, String> names = new HashedMap<>();
+    private IterableMap<String, String> names = new HashedMap<String, String>();
     private String givenName;
-    private IterableMap<String, String> givenNames = new HashedMap<>();
+    private IterableMap<String, String> givenNames = new HashedMap<String, String>();
     private String familyName;
-    private IterableMap<String, String> familyNames = new HashedMap<>();
+    private IterableMap<String, String> familyNames = new HashedMap<String, String>();
     private String middleName;
-    private IterableMap<String, String> middleNames = new HashedMap<>();
+    private IterableMap<String, String> middleNames = new HashedMap<String, String>();
     private String nickname;
-    private IterableMap<String, String> nicknames = new HashedMap<>();
+    private IterableMap<String, String> nicknames = new HashedMap<String, String>();
     private String preferredUsername;
     private URL profile;
-    private IterableMap<String, URL> profiles = new HashedMap<>();
+    private IterableMap<String, URL> profiles = new HashedMap<String, URL>();
     private URL picture;
-    private IterableMap<String, URL> pictures = new HashedMap<>();
+    private IterableMap<String, URL> pictures = new HashedMap<String, URL>();
     private URL website;
-    private IterableMap<String, URL> websites = new HashedMap<>();
+    private IterableMap<String, URL> websites = new HashedMap<String, URL>();
     private InternetAddress email;
     private boolean emailVerified;
     private Gender gender;
@@ -38,16 +38,16 @@ public class EndUser {
     private String phoneNumber;
     private String phoneNumberVerified;
     private Address address;
-    private IterableMap<String, Address> addresses= new HashedMap<>();
+    private IterableMap<String, Address> addresses= new HashedMap<String, Address>();
     private Date updatedAt;
-    private Date dateCreated;
+    private Date createdAt;
 
     private EndUser() { }
 
-    public EndUser(String sub, Date dateCreated) {
+    public EndUser(String sub, Date createdAt) {
         this.sub = sub;
-        this.updatedAt = dateCreated;
-        this.dateCreated = dateCreated;
+        this.updatedAt = createdAt;
+        this.createdAt = createdAt;
     }
 
     public String getSub() {
@@ -278,7 +278,7 @@ public class EndUser {
         this.updatedAt = updatedAt;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 }

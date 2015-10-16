@@ -23,6 +23,6 @@ public enum TokenEndpointAuthMethod {
 
     @Override
     public String toString() {
-        return String.format("%s: %s", method, scheme);
+        return String.format("%s; %s", method, scheme);
     }
 }

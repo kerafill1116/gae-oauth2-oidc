@@ -6,6 +6,9 @@ import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
 
+import com.googlecode.objectify.annotation.OnSave;
+import gae.oauth2.oidc.datastore.DatastoreError;
+import gae.oauth2.oidc.datastore.DatastoreErrorException;
 import org.apache.commons.collections4.IterableMap;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.collections4.set.ListOrderedSet;
@@ -18,21 +21,21 @@ public class ResourceServer {
     private Date idIssuedAt;
     private Date secretExpiresAt;
 
-    private ListOrderedSet<ResponseType> responseTypes = new ListOrderedSet<>();
-    private ListOrderedSet<GrantType> grantTypes = new ListOrderedSet<>();
+    private ListOrderedSet<ResponseType> responseTypes = new ListOrderedSet<ResponseType>();
+    private ListOrderedSet<GrantType> grantTypes = new ListOrderedSet<GrantType>();
 
     private String name;
-    private IterableMap<String, String> names = new HashedMap<>();
+    private IterableMap<String, String> names = new HashedMap<String, String>();
     private URI logoUri;
-    private IterableMap<String, URI> logoUris = new HashedMap<>();
+    private IterableMap<String, URI> logoUris = new HashedMap<String, URI>();
 
     private TokenValidationEndpointAuthMethod authMethod = TokenValidationEndpointAuthMethod.RESOURCE_SERVER_SECRET_BASIC;
 
-    private ListOrderedSet<Scope> scope = new ListOrderedSet<>();
+    private ListOrderedSet<Scope> scope = new ListOrderedSet<Scope>();
     private String softwareId;
     private String softwareVersion;
 
-    private ListOrderedSet<String> clientIds = new ListOrderedSet<>();
+    private ListOrderedSet<String> clientIds = new ListOrderedSet<String>();
 
     private ResourceServer() { }
 
@@ -142,5 +145,41 @@ public class ResourceServer {
 
     public void setSoftwareVersion(String softwareVersion) {
         this.softwareVersion = softwareVersion;
+    }
+
+    public ListOrderedSet<ResponseType> getResponseTypes() {
+        return responseTypes;
+    }
+
+    public void setResponseTypes(ListOrderedSet<ResponseType> responseTypes) {
+        this.responseTypes = responseTypes;
+    }
+
+    public ListOrderedSet<GrantType> getGrantTypes() {
+        return grantTypes;
+    }
+
+    public void setGrantTypes(ListOrderedSet<GrantType> grantTypes) {
+        this.grantTypes = grantTypes;
+    }
+
+    public ListOrderedSet<String> getClientIds() {
+        return clientIds;
+    }
+
+    public void setClientIds(ListOrderedSet<String> clientIds) {
+        this.clientIds = clientIds;
+    }
+
+    @OnSave
+    private void checkResponseGrantTypes() {
+        if(responseTypes.contains(ResponseType.CODE) && !grantTypes.contains(GrantType.AUTHORIZATION_CODE))
+            throw new DatastoreErrorException(DatastoreError.REQUIRED_GRANT_TYPE);
+        if((responseTypes.contains(ResponseType.ID_TOKEN) || responseTypes.contains(ResponseType.TOKEN)) && !grantTypes.contains(GrantType.IMPLICIT))
+            throw new DatastoreErrorException(DatastoreError.REQUIRED_GRANT_TYPE);
+        if(grantTypes.contains(GrantType.AUTHORIZATION_CODE) && !responseTypes.contains(ResponseType.CODE))
+            throw new DatastoreErrorException(DatastoreError.REQUIRED_RESPONSE_TYPE);
+        if(grantTypes.contains(GrantType.IMPLICIT) && !(responseTypes.contains(ResponseType.TOKEN) || responseTypes.contains(ResponseType.ID_TOKEN)))
+            throw new DatastoreErrorException(DatastoreError.REQUIRED_RESPONSE_TYPE);
     }
 }

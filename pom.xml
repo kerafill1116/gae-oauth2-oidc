@@ -20,7 +20,8 @@
         <commons-collections.version>4.0</commons-collections.version>
         <commons-lang.version>3.4</commons-lang.version>
         <commons-codec.version>1.10</commons-codec.version>
-        <nimbus-oauth2-oidc-sdk.version>4.16.1</nimbus-oauth2-oidc-sdk.version>
+        <joda-time.version>2.8.2</joda-time.version>
+        <!-- nimbus-oauth2-oidc-sdk.version>4.16.1</nimbus-oauth2-oidc-sdk.version -->
         <junit.version>4.12</junit.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -116,12 +117,19 @@
             <version>${commons-codec.version}</version>
         </dependency>
 
-        <!-- Nimbus OAuth2 OIDC SDK -->
+        <!-- Joda Time -->
         <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda-time.version}</version>
+        </dependency>
+
+        <!-- Nimbus OAuth2 OIDC SDK -->
+        <!-- dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>oauth2-oidc-sdk</artifactId>
             <version>${nimbus-oauth2-oidc-sdk.version}</version>
-        </dependency>
+        </dependency -->
 
         <!-- Test Dependencies -->
         <dependency>

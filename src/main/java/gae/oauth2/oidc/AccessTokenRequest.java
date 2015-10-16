@@ -22,10 +22,12 @@ public class AccessTokenRequest {
     private String refreshToken;
     // common password, client_credentials, refresh_token
     private ListOrderedSet<Scope> scope = new ListOrderedSet<>();
+    // my own extension
+    private String resourceServerId;
 
     private AccessTokenRequest() { }
 
-    public AccessTokenRequest(GrantType grantType, String code, URI redirectUri, String username, String password, String refreshToken, ListOrderedSet<Scope> scope) {
+    public AccessTokenRequest(GrantType grantType, String code, URI redirectUri, String username, String password, String refreshToken, ListOrderedSet<Scope> scope, String resourceServerId) {
         this.grantType = grantType;
         this.code = code;
         this.redirectUri = redirectUri;
@@ -33,10 +35,44 @@ public class AccessTokenRequest {
         this.password = password;
         this.refreshToken = refreshToken;
         this.scope = scope;
+        this.resourceServerId = resourceServerId;
+    }
+
+    public GrantType getGrantType() {
+        return grantType;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public URI getRedirectUri() {
+        return redirectUri;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public ListOrderedSet<Scope> getScope() {
+        return scope;
+    }
+
+    public String getResourceServerId() {
+        return resourceServerId;
     }
 
     public static AccessTokenRequest parse(MultivaluedMap<String, String> form)
             throws JsonProcessingException {
+        // parse grant_type
         String grantTypeStr = form.getFirst("grant_type");
         if(StringUtils.isBlank(grantTypeStr))
             throw new ErrorException(Error.INVALID_REQUEST);
@@ -87,7 +123,10 @@ public class AccessTokenRequest {
                 scope.add(new Scope(str));
         }
 
-        return new AccessTokenRequest(grantType, code, redirectUri, username, password, refreshToken, scope);
+        // parse optional resource_server_id
+        String resourceServerId = form.getFirst("resource_server_id");
+
+        return new AccessTokenRequest(grantType, code, redirectUri, username, password, refreshToken, scope, resourceServerId);
     }
 
 

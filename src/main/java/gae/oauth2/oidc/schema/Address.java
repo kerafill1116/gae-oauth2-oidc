@@ -1,6 +1,7 @@
 package gae.oauth2.oidc.schema;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.StrBuilder;
 
 public class Address {
     private String streetAddress;
@@ -65,7 +66,7 @@ public class Address {
      * country
      */
     public String getFormatted() {
-        StringBuilder formatted = new StringBuilder();
+        StrBuilder formatted = new StrBuilder();
         boolean inbStreetAddress = !StringUtils.isBlank(streetAddress);
         boolean inbLocality = !StringUtils.isBlank(locality);
         boolean inbRegion = !StringUtils.isBlank(region);

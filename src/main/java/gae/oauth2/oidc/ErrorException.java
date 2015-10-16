@@ -27,13 +27,12 @@ public class ErrorException extends RuntimeException {
         rb.header("Pragma", "no-cache");
         rb.header(HttpHeaders.EXPIRES, "0");
         switch(error) {
-            case INVALID_REQUEST:
-                rb.status(Response.Status.BAD_REQUEST);
-                break;
             case INVALID_CLIENT:
                 rb.status(Response.Status.UNAUTHORIZED);
                 rb.header(HttpHeaders.WWW_AUTHENTICATE, clientCredentials.getAuthMethod().getScheme());
+                break;
             default:
+                rb.status(Response.Status.BAD_REQUEST);
         }
         ObjectMapper mapper = new ObjectMapper();
         rb.entity(mapper.writeValueAsString(this));
@@ -61,7 +60,7 @@ public class ErrorException extends RuntimeException {
         public void serialize(ErrorException value, JsonGenerator gen, SerializerProvider serializers)
                 throws IOException, JsonProcessingException {
             gen.writeStartObject();
-            gen.writeStringField("error", value.getError().getError());
+            gen.writeStringField("error", value.error.getError());
             gen.writeEndObject();
         }
     }
